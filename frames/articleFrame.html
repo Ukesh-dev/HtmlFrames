@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <title>Books</title>
+  </head>
+  <style>
+    .content-wrapper {
+      display: grid;
+      padding: 2rem;
+      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    img {
+      display: block;
+      width: 100%;
+      position: relative;
+      top: -20px;
+      aspect-ratio: 3 /2.2;
+      object-fit: contain;
+      aspect-ration: 2/3;
+      transition: all 0.15s ease;
+    }
+    .book-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .book-content:hover .book-img {
+      transform: rotateY(180deg) scaleX(-1);
+    }
+    .bookImg-wrapper {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+    .bookDesc {
+      margin-top: 1rem;
+    }
+    .bookDesc .book-name {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+    .book-author {
+      line-height: 2;
+      color: gray;
+    }
+    .book-price {
+      color: yellow;
+    }
+  </style>
+  <body>
+    <main>
+      <div class="content-wrapper">
+        <!-- * Dummy Data  * -->
+        <!-- <div class="book-content">
+          <div class="bookImg-wrapper">
+            <img src="./assets/images/arrival_1.jpg" alt="book_1" />
+          </div>
+          <div class="bookDesc">
+            <p class="book-name">A Way Of Living</p>
+            <div class="book-author">John Doe</div>
+            <span class="price">NPR 140.00</span>
+          </div>
+        </div> -->
+      </div>
+    </main>
+    <template id="cartsTemplate">
+      <div class="book-content">
+        <div class="bookImg-wrapper">
+          <img
+            src="./assets/images/arrival_1.jpg"
+            alt="book_1"
+            class="book-img"
+          />
+        </div>
+        <div class="bookDesc">
+          <p class="book-name">A Way Of Living</p>
+          <div class="book-author">John Doe</div>
+          <span class="book-price">$140.00</span>
+        </div>
+      </div>
+    </template>
+    <script>
+      const AllBooks = [
+        {
+          id: 1,
+          name: 'Music Book',
+          by: 'John Doe',
+          src: '../assets/images/book_8.png',
+          price: 500,
+        },
+        {
+          id: 1,
+          name: 'Subletteo',
+          by: 'John Doe',
+          src: '../assets/images/book_2.jpg',
+          price: 725,
+        },
+        {
+          id: 1,
+          name: 'Wespart',
+          by: 'John Doe',
+          src: '../assets/images/book_3.jpg',
+          price: 445,
+        },
+        {
+          id: 1,
+          name: 'Meditation',
+          by: 'John Doe',
+          src: '../assets/images/book_4.jpg',
+          price: 575,
+        },
+        {
+          id: 1,
+          name: 'Clever Lands',
+          by: 'John Doe',
+          src: '../assets/images/book_5.jpg',
+          price: 500,
+        },
+        {
+          id: 8,
+          name: 'Francis Shattered',
+          by: 'John Doe',
+          src: '../assets/images/book_6.jpg',
+          price: 375,
+        },
+        {
+          id: 1,
+          name: 'The Art City',
+          by: 'John Doe',
+          src: '../assets/images/book_7.png',
+          price: 345,
+        },
+        {
+          id: 1,
+          name: 'Island',
+          by: 'John Doe',
+          src: '../assets/images/book_14.png',
+          price: 545,
+        },
+        {
+          id: 9,
+          name: 'FreeFall',
+          by: 'John Doe',
+          src: '../assets/images/book_9.jpg',
+          price: 575,
+        },
+        {
+          id: 10,
+          name: 'Smaple Text',
+          by: 'John Doe',
+          src: '../assets/images/book_10.png',
+          price: 700,
+        },
+      ]
+
+      const bookWrapper = document.querySelector('.content-wrapper')
+      const bookTemplate = document.querySelector('#cartsTemplate')
+      AllBooks.forEach(book => {
+        const bookContainer = bookTemplate.content.cloneNode(true)
+
+        const bookImage = bookContainer.querySelector('.book-img')
+        bookImage.src = `${book.src}`
+        const bookTitle = bookContainer.querySelector('.book-name')
+        bookTitle.innerText = book.name
+        const bookAuthor = bookContainer.querySelector('.book-author')
+        bookAuthor.innerText = book.by
+        const bookPrice = bookContainer.querySelector('.book-price')
+        bookPrice.innerText = `NPR ${book.price}`
+        bookWrapper.appendChild(bookContainer)
+      })
+    </script>
+  </body>
+</html>

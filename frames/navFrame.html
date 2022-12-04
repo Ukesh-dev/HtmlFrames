@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <title>Navbar</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      height: 50px;
+      padding-inline: 0.8rem;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+    }
+    .logo,
+    .button-wrapper {
+      flex: 1;
+    }
+    .logo {
+      font-size: 2rem;
+      text-decoration: underline wavy yellow;
+    }
+    .button-wrapper {
+      display: flex;
+      justify-content: end;
+      gap: 1rem;
+    }
+    nav {
+      display: flex;
+      height: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    ul {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+    ul > * + * {
+      margin-left: 2rem;
+    }
+    li {
+      position: relative;
+    }
+    li > a {
+      font-size: 1.25rem;
+    }
+    .active::after {
+      content: '';
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      left: 0;
+      bottom: -5px;
+      background-color: whitesmoke;
+    }
+  </style>
+  <body>
+    <header>
+      <nav>
+        <a href="#" class="logo">BookClub</a>
+        <ul>
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Ebooks</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Membership</a></li>
+        </ul>
+        <div class="button-wrapper">
+          <button class="login">Login</button>
+          <button class="Signup">Sign Up</button>
+        </div>
+      </nav>
+    </header>
+  </body>
+</html>

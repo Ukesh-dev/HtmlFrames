@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      transition: all 0.15s ease;
+    }
+    ul {
+      margin-top: 2rem;
+      width: 100%;
+      /* height: 100vh; */
+    }
+    li {
+      cursor: context-menu;
+      position: relative;
+      font-family: 'Josefin Sans', sans-serif;
+      letter-spacing: 1px;
+      padding: 0.5em;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    li.active {
+      font-weight: 700;
+    }
+    li:hover:not(.active) {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    li.active::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 60%;
+      background-color: yellow;
+    }
+  </style>
+  <body>
+    <ul>
+      <li>Adventure</li>
+      <li>Biography</li>
+      <li>Classic</li>
+      <li class="active">Random Selection</li>
+      <li>Philosophy</li>
+      <li>Thriller</li>
+      <li>History</li>
+      <li>Science Fiction</li>
+    </ul>
+  </body>
+</html>
