@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="padding: 2rem">
+      <table role="grid" border="2">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody class="table-body"></tbody>
+        <!-- <tfoot>
+          <tr>
+            <th scope="col">#</th>
+          </tr>
+        </tfoot> -->
+      </table>
+    </div>
+    <script>
+      const AllBooks = [
+        {
+          id: 1,
+          name: 'Music Book',
+          by: 'John Doe',
+          src: '../assets/images/book_8.png',
+          price: 500,
+        },
+        {
+          id: 1,
+          name: 'Subletteo',
+          by: 'John Doe',
+          src: '../assets/images/book_2.jpg',
+          price: 725,
+        },
+        {
+          id: 1,
+          name: 'Wespart',
+          by: 'John Doe',
+          src: '../assets/images/book_3.jpg',
+          price: 445,
+        },
+        {
+          id: 1,
+          name: 'Meditation',
+          by: 'John Doe',
+          src: '../assets/images/book_4.jpg',
+          price: 575,
+        },
+        {
+          id: 1,
+          name: 'Clever Lands',
+          by: 'John Doe',
+          src: '../assets/images/book_5.jpg',
+          price: 500,
+        },
+        {
+          id: 8,
+          name: 'Francis Shattered',
+          by: 'John Doe',
+          src: '../assets/images/book_6.jpg',
+          price: 375,
+        },
+        {
+          id: 1,
+          name: 'The Art City',
+          by: 'John Doe',
+          src: '../assets/images/book_7.png',
+          price: 345,
+        },
+        {
+          id: 1,
+          name: 'Island',
+          by: 'John Doe',
+          src: '../assets/images/book_14.png',
+          price: 545,
+        },
+        {
+          id: 9,
+          name: 'FreeFall',
+          by: 'John Doe',
+          src: '../assets/images/book_9.jpg',
+          price: 575,
+        },
+        {
+          id: 10,
+          name: 'Smaple Text',
+          by: 'John Doe',
+          src: '../assets/images/book_10.png',
+          price: 700,
+        },
+      ]
+
+      const parentElement = document.querySelector('.table-body')
+      const markup = AllBooks.map((book, idx) => {
+        const formatter = new Intl.NumberFormat('en-US', {
+          currency: 'NPR',
+          style: 'currency',
+        })
+        return `
+          <tr>
+            <th scope="row">${idx + 1}</th>
+            <td >${book.name}</td>
+            <td>${book.by}</td>
+            <td>${formatter.format(book.price)}</td>
+          </tr>
+        `
+      }).join('')
+      parentElement.insertAdjacentHTML('beforebegin', markup)
+      // console.log('afterbegin', markup)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 600px;
+      height: 100vh;
+    }
+    button {
+      width: max-content;
+    }
+    .login-form,
+    .sign-form {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      /* top: -50%; */
+      left: 0;
+      right: 0;
+    }
+    .login-form[data-hidden='true'] {
+      display: none;
+    }
+    .signup-form[data-hidden='true'] {
+      display: none;
+    }
+    .login__form-btn {
+      font-size: 1rem;
+    }
+    .login__form-btn-secondary,
+    .signup__form-btn-secondary {
+      background-color: transparent;
+    }
+  </style>
+  <body>
+    <!-- <dialog id="modal-example" -->
+
+    <div class="login__form container">
+      <form class="login-form" data-hidden="false">
+        <div class="login__form--user">
+          <label for="username"> E-mail</label>
+          <input type="email" id="username" />
+        </div>
+        <div class="login__form--password">
+          <label for="password">Password</label>
+          <input type="password" id="password" />
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <button class="submit-btn">Log In</button>
+          <button class="signup__form-btn-secondary">Sign Up</button>
+        </div>
+      </form>
+
+      <form class="signup-form" data-hidden="true" style="margin-top: 2rem">
+        <div
+          class="signup__form--user"
+          style="display: flex; justify-content: space-between"
+        >
+          <div class="signup__form--user-firstName">
+            <label for="firstname"> First Name</label>
+            <input type="text" id="firstname" />
+          </div>
+
+          <div class="signup__form--user-firstName">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" />
+          </div>
+        </div>
+        <div class="login__form--number">
+          <label for="number">Mobile no.</label>
+          <input type="number" id="number" />
+        </div>
+        <div class="login__form--user">
+          <label for="email"> E-mail</label>
+          <input type="email" id="email" />
+        </div>
+        <div class="login__form--password">
+          <label for="passowrd">Password</label>
+          <input type="password" id="password" />
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <button class="submit-btn">Sign Up</button>
+          <button class="login__form-btn-secondary">Log In</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      const loginForm = document.querySelector('.login-form')
+      const signupForm = document.querySelector('.signup-form')
+      const submitBtn = document.querySelector('.submit-btn')
+      const loginBtn = document.querySelector('.login__form-btn-secondary')
+      const signupBtn = document.querySelector('.signup__form-btn-secondary')
+      submitBtn.addEventListener('click', e => {
+        e.preventDefault()
+      })
+
+      loginBtn.addEventListener('click', e => {
+        e.preventDefault()
+        signupForm.dataset.hidden = 'true'
+        loginForm.dataset.hidden = 'false'
+      })
+      signupBtn.addEventListener('click', e => {
+        e.preventDefault()
+        loginForm.dataset.hidden = 'true'
+        signupForm.dataset.hidden = 'false'
+      })
+    </script>
+    <!-- </dialog> -->
+  </body>
+</html>
