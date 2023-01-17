@@ -22,6 +22,7 @@
     button {
       width: max-content;
     }
+
     .login-form,
     .sign-form {
       position: absolute;
@@ -44,6 +45,23 @@
     .signup__form-btn-secondary {
       background-color: transparent;
     }
+    .error {
+      position: absolute;
+      display: none;
+      left: 0;
+      bottom: 0;
+      color: red;
+      font-size: 0.5rem;
+    }
+    #firstname[aria-invalid='true'] ~ .error.error-name {
+      display: block;
+    }
+    #number[aria-invalid='true'] ~ .error.error-number {
+      display: block;
+    }
+    #password[aria-invalid='true'] ~ .error.error-password {
+      display: block;
+    }
   </style>
   <body>
     <!-- <dialog id="modal-example" -->
@@ -56,7 +74,7 @@
         </div>
         <div class="login__form--password">
           <label for="password">Password</label>
-          <input type="password" id="password" />
+          <input type="password" id="login-password" />
         </div>
         <div style="display: flex; justify-content: space-between">
           <button class="submit-btn">Log In</button>
@@ -69,30 +87,61 @@
           class="signup__form--user"
           style="display: flex; justify-content: space-between"
         >
-          <div class="signup__form--user-firstName">
+          <div class="signup__form--user-firstName" style="position: relative">
             <label for="firstname"> First Name</label>
-            <input type="text" id="firstname" />
+            <input type="text" id="firstname" name="firstname" required />
+            <span class="error error-name"
+              >Firstname must be 6 characters long with no numbers</span
+            >
           </div>
 
-          <div class="signup__form--user-firstName">
+          <div class="signup__form--user-lastname">
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" />
+            <input type="text" id="lastname" name="lastName" required />
           </div>
         </div>
-        <div class="login__form--number">
-          <label for="number">Mobile no.</label>
-          <input type="number" id="number" />
+        <div
+          class="signup__form--addressnumber"
+          style="display: flex; justify-content: space-between; gap: 0.5rem"
+        >
+          <div class="login__form--number" style="position: relative; flex: 1">
+            <label for="number">Mobile no.</label>
+            <input
+              type="number"
+              id="number"
+              placeholder="98********"
+              name="number"
+              required
+            />
+            <span class="error error-number">Invalid Number Format</span>
+          </div>
+          <div class="login__form--address" style="flex: 1">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required />
+          </div>
         </div>
         <div class="login__form--user">
           <label for="email"> E-mail</label>
-          <input type="email" id="email" />
+          <input type="email" id="email" name="email" required />
         </div>
-        <div class="login__form--password">
+        <div class="login__form--password" style="position: relative">
           <label for="passowrd">Password</label>
-          <input type="password" id="password" />
+          <input type="password" id="password" name="password" required />
+
+          <span class="error error-password"
+            >Password must contain 6 characters</span
+          >
         </div>
-        <div style="display: flex; justify-content: space-between">
-          <button class="submit-btn">Sign Up</button>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+          "
+        >
+          <button class="submit-btn submit-btn--signup" type="submit">
+            Sign Up
+          </button>
           <button class="login__form-btn-secondary">Log In</button>
         </div>
       </form>
@@ -101,6 +150,7 @@
       const loginForm = document.querySelector('.login-form')
       const signupForm = document.querySelector('.signup-form')
       const submitBtn = document.querySelector('.submit-btn')
+      const signUpSubmit = document.querySelector('.submit-btn--signup')
       const loginBtn = document.querySelector('.login__form-btn-secondary')
       const signupBtn = document.querySelector('.signup__form-btn-secondary')
       submitBtn.addEventListener('click', e => {
@@ -117,6 +167,91 @@
         loginForm.dataset.hidden = 'true'
         signupForm.dataset.hidden = 'false'
       })
+      const allInputs = document.querySelectorAll('input')
+
+      signupForm.addEventListener('submit', e => {
+        e.preventDefault()
+        allInputs.forEach(i => {
+          i.removeAttribute('aria-invalid')
+        })
+        console.log(e.target)
+        const formData = new FormData(document.querySelector('.signup-form'))
+        const dataArr = [...new FormData(signupForm)]
+        const data = Object.fromEntries(dataArr)
+        console.log(data)
+        const isValidData = validate(data)
+        if (isValidData) {
+          document
+            .querySelector('.submit-btn--signup')
+            .setAttribute('aria-busy', 'true')
+          setTimeout(() => {
+            document
+              .querySelector('.submit-btn--signup')
+              .setAttribute('aria-busy', 'false')
+            allInputs.forEach(i => {
+              i.value = ''
+            })
+          }, 2000)
+        }
+        // formData.forEach((value, key) => {
+        //   console.log(key, value)
+        // })
+      })
+
+      function validate({
+        firstname,
+        LastName,
+        number,
+        email,
+        password,
+        address,
+      }) {
+        let isvalid = true
+        function hasNumbers(str) {
+          return str.match(/\d+/g) != null
+        }
+        function isValidEmail(email) {
+          return (
+            email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) !=
+            null
+          )
+        }
+        if (firstname.length < 6 || hasNumbers(firstname)) {
+          console.log(firstname + 'incore')
+          document
+            .getElementById('firstname')
+            .setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        if (!address) {
+          document
+            .getElementById('address')
+            .setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        if (!lastname) {
+          document
+            .getElementById('lastname')
+            .setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        if (!number.match(/^98\d{8}$/)) {
+          document.getElementById('number').setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        if (!isValidEmail(email)) {
+          document.getElementById('email').setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        if (password.length < 6) {
+          console.log('password in incorrect')
+          document
+            .getElementById('password')
+            .setAttribute('aria-invalid', 'true')
+          isvalid = false
+        }
+        return isvalid
+      }
     </script>
     <!-- </dialog> -->
   </body>
